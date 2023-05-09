@@ -23,6 +23,7 @@ object frmValidateP4D: TfrmValidateP4D
     DoubleBuffered = True
     ParentColor = True
     TabOrder = 0
+    ActivePageIndex = 2
     Fill.Kind = gfkNone
     Stroke.Kind = gskNone
     TabAppearance.Font.Charset = DEFAULT_CHARSET
@@ -112,6 +113,9 @@ object frmValidateP4D: TfrmValidateP4D
       6422207374726F6B652D77696474683D22322220643D226D313420372D352035
       20352035222F3E3C2F7376673E}
     Interaction.SelectTabOnScroll = False
+    Interaction.InsertTabWithKeyboard = False
+    Options.CloseMode = tcmTab
+    Options.TabListButton = True
     TabSize.Margins.Left = 8.000000000000000000
     TabSize.Margins.Top = 8.000000000000000000
     TabSize.Margins.Right = 8.000000000000000000
@@ -135,39 +139,7 @@ object frmValidateP4D: TfrmValidateP4D
         DisabledBitmaps = <>
         UseDefaultAppearance = True
       end>
-    object TMSFNCPageControl1Page2: TTMSFNCPageControlContainer
-      AlignWithMargins = True
-      Left = 0
-      Top = 29
-      Width = 618
-      Height = 375
-      Margins.Left = 0
-      Margins.Top = 29
-      Margins.Right = 0
-      Margins.Bottom = 0
-      Align = alClient
-      ParentDoubleBuffered = False
-      DoubleBuffered = True
-      TabStop = False
-      TabOrder = 2
-      Visible = False
-      PageIndex = 2
-      IsActive = False
-      object memoPip: TMemo
-        Left = 0
-        Top = 0
-        Width = 618
-        Height = 375
-        Align = alClient
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Consolas'
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 0
-      end
-    end
+    OnClosePage = pcMainClosePage
     object TMSFNCPageControl1Page1: TTMSFNCPageControlContainer
       AlignWithMargins = True
       Left = 0
@@ -584,8 +556,9 @@ object frmValidateP4D: TfrmValidateP4D
       DoubleBuffered = True
       TabStop = False
       TabOrder = 0
+      Visible = False
       PageIndex = 0
-      IsActive = True
+      IsActive = False
       object memoIDEResult: TMemo
         Left = 0
         Top = 265
@@ -658,6 +631,38 @@ object frmValidateP4D: TfrmValidateP4D
         DoubleBuffered = True
         TabOrder = 3
         MinSize = 20.000000000000000000
+      end
+    end
+    object TMSFNCPageControl1Page2: TTMSFNCPageControlContainer
+      AlignWithMargins = True
+      Left = 0
+      Top = 29
+      Width = 618
+      Height = 375
+      Margins.Left = 0
+      Margins.Top = 29
+      Margins.Right = 0
+      Margins.Bottom = 0
+      Align = alClient
+      ParentDoubleBuffered = False
+      DoubleBuffered = True
+      TabStop = False
+      TabOrder = 2
+      PageIndex = 2
+      IsActive = True
+      object memoPip: TMemo
+        Left = 0
+        Top = 0
+        Width = 618
+        Height = 375
+        Align = alClient
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Consolas'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
       end
     end
   end

@@ -127,6 +127,8 @@ object frmValidateP4D: TfrmValidateP4D
       656A6F696E3D22726F756E6422207374726F6B652D77696474683D2232222064
       3D226D313420372D35203520352035222F3E3C2F7376673E0D0A}
     Interaction.SelectTabOnScroll = False
+    Options.CloseMode = tcmTab
+    Options.TabListButton = True
     TabSize.Margins.Left = 8.000000000000000000
     TabSize.Margins.Top = 8.000000000000000000
     TabSize.Margins.Right = 8.000000000000000000
@@ -150,6 +152,7 @@ object frmValidateP4D: TfrmValidateP4D
         DisabledBitmaps = <>
         UseDefaultAppearance = True
       end>
+    OnClosePage = pcMainClosePage
     object TMSFNCPageControl1Page2: TTMSFNCPageControlContainer
       Align = Client
       Margins.Top = 29.000000000000000000

@@ -53,6 +53,7 @@ type
     procedure btnPyEngBrowseDLLClick(Sender: TObject);
     procedure btnPyEngUnloadDLLClick(Sender: TObject);
     procedure btnIDEExecuteClick(Sender: TObject);
+    procedure pcMainClosePage(Sender: TObject; APageIndex: Integer; ACloseAction: TTMSFNCPageControlPageCloseAction);
   strict private
     FStatusText: TTMSFNCStatusBarPanel;
     FSysPathNode, FSysVersionNode, FSysExecutableNode: TTMSFNCTreeViewNode;
@@ -65,6 +66,7 @@ type
     procedure PythonEngineQueryDetails;
     procedure PythonEngineQueryPIP;
     procedure PythonEngineQueryPackages;
+    procedure DispScaleButton(AButton: TTMSFNCToolBarButton);
   private
     procedure InitPyEngineEmbedded;
     function PyEnginePathValid: Boolean;
@@ -95,6 +97,10 @@ begin
   InitPyEngineEmbedded;
   pcMain.ActivePageIndex := 1;
   AssignObjectInspector;
+  DispScaleButton(btnPyEngLoadDll);
+  DispScaleButton(btnPyEngBrowseDLL);
+  DispScaleButton(btnPyEngUnloadDLL);
+  DispScaleButton(btnIDEExecute);
 end;
 
 procedure TfrmValidateP4D.CreateLogger;
@@ -103,9 +109,25 @@ var
   pg: TTMSFNCPageControlPage;
 begin
   pg := pcMain.AddPage('Logger');
+  pg.TabVisible := false;
   lv := TSEFNCLogViewer.Create(pg.Container);
   lv.Parent := pg.Container;
   lv.Active := true;
+end;
+
+procedure TfrmValidateP4D.DispScaleButton(AButton: TTMSFNCToolBarButton);
+var
+  s: single;
+  AGraphics: TTMSFNCGraphics;
+begin
+  AGraphics := TTMSFNCGraphics.CreateNativeBitmapCanvas(50, 50);
+  try
+    s := TTMSFNCUtils.GetDPIScale(AButton, 96);
+    AGraphics.BeginScene;
+    AButton.Width := round(AGraphics.CalculateTextWidth(AButton.Text) * s);
+  finally
+    AGraphics.Free;
+  end;
 end;
 
 procedure TfrmValidateP4D.ShowBrowseDLL;
@@ -445,6 +467,22 @@ begin
     ACanWrite := false
   else if APropertyName = 'Name' then
     ACanWrite := false;
+end;
+
+procedure TfrmValidateP4D.pcMainClosePage(Sender: TObject; APageIndex: Integer;
+  ACloseAction: TTMSFNCPageControlPageCloseAction);
+var
+  i, j: Integer;
+  pg: TTMSFNCPageControlPage;
+begin
+  j := 0;
+  for i := 0 to pcMain.Pages.Count - 1 do
+  begin
+    pg := TTMSFNCPageControlPage(pcMain.Pages[i]);
+    if pg.TabVisible = true then
+      j := i;
+  end;
+  pcMain.ActivePageIndex := j;
 end;
 
 {$IFDEF DEBUG}
